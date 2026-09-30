@@ -1,7 +1,7 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/index-8.html" }
+    { "source": "/", "destination": "/jaciara-marrocos-1.html" }
   ],
   "headers": [
     {
