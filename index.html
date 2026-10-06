@@ -365,13 +365,17 @@ button{border:0;background:none;cursor:pointer;font-family:inherit}
   .riad{padding:84px 22px}
   .riad__grid{grid-template-columns:1fr;gap:48px}
   .timeline{padding:84px 22px 40px}
-  .timeline__line{left:34px;transform:none}
+  .timeline__line{left:32px;transform:none}
   .timeline__item{grid-template-columns:64px 1fr;gap:18px}
   .timeline__item:nth-child(odd) .timeline__card{order:2;text-align:left}
   .timeline__item:nth-child(odd) .timeline__day{justify-content:flex-start}
-  .timeline__center{order:1}
+  .timeline__item:nth-child(odd) .timeline__center,.timeline__center{order:1}
+  .timeline__item:nth-child(odd) .timeline__card{min-width:0}
   .timeline__empty{display:none}
-  .timeline__center .timeline__dot{left:50%}
+  .timeline__thumb{width:56px;height:56px}
+  .timeline__dot{display:none}
+  .timeline__card{padding:18px 18px}
+  .timeline__card h4{font-size:20px}
   .includes{padding:84px 22px}
   .includes__grid{grid-template-columns:1fr 1fr}
   .invest{padding:84px 22px}
@@ -415,6 +419,13 @@ button{border:0;background:none;cursor:pointer;font-family:inherit}
   .pacote{flex:0 0 82%;scroll-snap-align:center}
   .pacotes__hint{display:block}
 }
+/* TRANSIÇÕES SUAVES ENTRE SEÇÕES (desfoque gaussiano) */
+.seam{position:relative;height:0;z-index:6;pointer-events:none}
+.seam::before{content:"";position:absolute;left:0;right:0;top:-80px;height:160px;
+  -webkit-backdrop-filter:blur(34px);backdrop-filter:blur(34px);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 38%,#000 62%,transparent 100%);
+  mask-image:linear-gradient(180deg,transparent 0%,#000 38%,#000 62%,transparent 100%)}
+@media(max-width:760px){.seam::before{top:-60px;height:120px;-webkit-backdrop-filter:blur(26px);backdrop-filter:blur(26px)}}
 </style>
 </head>
 <body>
@@ -462,6 +473,8 @@ button{border:0;background:none;cursor:pointer;font-family:inherit}
   </div>
   <div class="scroll-hint"><span style="font-size:9px;letter-spacing:.32em;text-transform:uppercase">Deslize</span><i></i></div>
 </section>
+<div class="seam" aria-hidden="true"></div>
+
 
 <section class="pacotes" id="pacotes">
   <div class="reveal">
@@ -487,6 +500,8 @@ button{border:0;background:none;cursor:pointer;font-family:inherit}
   </div>
   <div class="pacotes__hint">Deslize para ver os dois →</div>
 </section>
+<div class="seam" aria-hidden="true"></div>
+
 
 <section class="section" id="experiencia">
   <div class="section__eyebrow reveal">
@@ -522,6 +537,8 @@ button{border:0;background:none;cursor:pointer;font-family:inherit}
     </article>
   </div>
 </section>
+<div class="seam" aria-hidden="true"></div>
+
 
 <section class="sahara" id="noite">
   <img class="sahara__bg" src="foto-5.webp" alt="Acampamento de luxo no deserto à noite com lanternas" loading="lazy">
@@ -540,6 +557,8 @@ button{border:0;background:none;cursor:pointer;font-family:inherit}
     <div></div>
   </div>
 </section>
+<div class="seam" aria-hidden="true"></div>
+
 
 <section class="riad" id="riad">
   <div class="riad__grid">
@@ -564,6 +583,8 @@ button{border:0;background:none;cursor:pointer;font-family:inherit}
     </div>
   </div>
 </section>
+<div class="seam" aria-hidden="true"></div>
+
 
 <section class="timeline" id="roteiro">
   <div class="timeline__head reveal">
@@ -586,6 +607,8 @@ button{border:0;background:none;cursor:pointer;font-family:inherit}
 
   </div>
 </section>
+<div class="seam" aria-hidden="true"></div>
+
 
 <section class="includes" id="inclui">
   <div class="includes__inner">
@@ -603,6 +626,8 @@ button{border:0;background:none;cursor:pointer;font-family:inherit}
     </div>
   </div>
 </section>
+<div class="seam" aria-hidden="true"></div>
+
 
 <section class="invest" id="invest">
   <div class="invest__wrap">
@@ -626,6 +651,8 @@ button{border:0;background:none;cursor:pointer;font-family:inherit}
     </div>
   </div>
 </section>
+<div class="seam" aria-hidden="true"></div>
+
 
 
 
@@ -643,6 +670,8 @@ button{border:0;background:none;cursor:pointer;font-family:inherit}
     <div style="margin-top:18px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:rgba(247,242,232,.7)">Resposta em até 2h • @jaciara.marrocos</div>
   </div>
 </section>
+<div class="seam" aria-hidden="true"></div>
+
 
 <footer class="footer">
   <div class="footer__inner">
