@@ -426,6 +426,11 @@ button{border:0;background:none;cursor:pointer;font-family:inherit}
   -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 38%,#000 62%,transparent 100%);
   mask-image:linear-gradient(180deg,transparent 0%,#000 38%,#000 62%,transparent 100%)}
 @media(max-width:760px){.seam::before{top:-60px;height:120px;-webkit-backdrop-filter:blur(26px);backdrop-filter:blur(26px)}}
+/* PASSOS NA AREIA */
+#steps{position:absolute;top:0;left:0;width:100%;height:0;z-index:7;pointer-events:none}
+.step{position:absolute;width:20px;height:44px;margin:-22px 0 0 -10px;opacity:0;transition:opacity 1.6s ease;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 44'%3E%3Cg fill='%23b88f4f'%3E%3Cellipse cx='10' cy='34' rx='5.5' ry='8'/%3E%3Cellipse cx='10' cy='18' rx='7' ry='9.5'/%3E%3Ccircle cx='3.8' cy='6' r='2'/%3E%3Ccircle cx='8' cy='3.4' r='1.8'/%3E%3Ccircle cx='12.4' cy='3.4' r='1.8'/%3E%3Ccircle cx='16.4' cy='6' r='1.9'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;filter:drop-shadow(0 1px 1px rgba(0,0,0,.25))}
+.step.on{opacity:.6;transition-duration:.5s}
+@media(prefers-reduced-motion:reduce){#steps{display:none}}
 </style>
 </head>
 <body>
@@ -723,5 +728,20 @@ closeBtn && closeBtn.addEventListener('click', shutMenu);
 menu && menu.querySelectorAll('a').forEach(a=>a.addEventListener('click', shutMenu));
 </script>
 <script>(function(){document.addEventListener("click",function(e){var a=e.target.closest("[data-product-id]");if(!a)return;e.preventDefault();var pid=a.getAttribute("data-product-id");if(pid)parent.postMessage({type:"ecto-artifact-link-click",productId:pid},"*")})})();</script>
+<div id="steps" aria-hidden="true"></div>
+<script>
+(()=>{if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+const box=document.getElementById('steps');let last=scrollY,acc=0,side=1;
+function step(x,y,rot,sx){const e=document.createElement('i');e.className='step';
+e.style.cssText='left:'+x+'px;top:'+y+'px;transform:rotate('+rot+'deg) scaleX('+sx+')';
+box.appendChild(e);requestAnimationFrame(()=>requestAnimationFrame(()=>e.classList.add('on')));
+setTimeout(()=>e.classList.remove('on'),4200);setTimeout(()=>e.remove(),6200)}
+let tick=false;
+addEventListener('scroll',()=>{if(tick)return;tick=true;requestAnimationFrame(()=>{tick=false;
+const y=scrollY,d=y-last;last=y;acc+=Math.abs(d);if(acc<120)return;acc=0;side=-side;
+const w=innerWidth,k=y/900,cx=w*(.5+.3*Math.sin(k)),slope=.3*w*Math.cos(k)/900,a=Math.atan(slope)*180/Math.PI;
+step(cx+side*13,y+innerHeight*.62,(d>0?180:0)-a,side)})},{passive:true});
+})();
+</script>
 </body>
 </html>
